@@ -57,7 +57,8 @@ var Select = React.createClass({
 		value: React.PropTypes.any,                // initial field value
 		valueComponent: React.PropTypes.func,      // value component to render in multiple mode
 		valueKey: React.PropTypes.string,          // path of the label value in option objects
-		valueRenderer: React.PropTypes.func        // valueRenderer: function (option) {}
+		valueRenderer: React.PropTypes.func,        // valueRenderer: function (option) {}
+		disableDropdown: React.PropTypes.bool
 	},
 
 	getDefaultProps () {
@@ -95,7 +96,8 @@ var Select = React.createClass({
 			singleValueComponent: SingleValue,
 			value: undefined,
 			valueComponent: Value,
-			valueKey: 'value'
+			valueKey: 'value',
+			disableDropdown: false
 		};
 	},
 
@@ -380,7 +382,7 @@ var Select = React.createClass({
 			return;
 		}
 
-		if (this.state.isFocused) {
+		if (this.state.isFocused && !this.props.disableDropdown) {
 			this.setState({
 				isOpen: true
 			}, this._bindCloseMenuIfClickedOutside);
@@ -418,7 +420,7 @@ var Select = React.createClass({
 	},
 
 	handleInputFocus (event) {
-		var newIsOpen = this.state.isOpen || this._openAfterFocus;
+		var newIsOpen = (this.state.isOpen || this._openAfterFocus) && !this.props.disableDropdown;
 		this.setState({
 			isFocused: true,
 			isOpen: newIsOpen
@@ -865,13 +867,19 @@ var Select = React.createClass({
 			input = <div className="Select-input">&nbsp;</div>;
 		}
 
+		if(!this.disableDropdown) {
+			var arrowZone = <span className="Select-arrow-zone" onMouseDown={this.handleMouseDownOnArrow} />;
+			var arrow = <span className="Select-arrow" onMouseDown={this.handleMouseDownOnArrow} />;
+		}
+
 		return (
 			<div ref="wrapper" className={selectClass}>
 				<input type="hidden" ref="value" name={this.props.name} value={this.state.value} disabled={this.props.disabled} />
 				<div className="Select-control" ref="control" onKeyDown={this.handleKeyDown} onMouseDown={this.handleMouseDown} onTouchEnd={this.handleMouseDown}>
 					{value}
 					{input}
-					<span className="Select-arrow-zone" onMouseDown={this.handleMouseDownOnArrow} />
+					{arrowZone}
+					{arrow}
 					<span className="Select-arrow" onMouseDown={this.handleMouseDownOnArrow} />
 					{loading}
 					{clear}
