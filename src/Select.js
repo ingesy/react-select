@@ -867,7 +867,7 @@ var Select = React.createClass({
 			input = <div className="Select-input">&nbsp;</div>;
 		}
 
-		if(!this.disableDropdown) {
+		if(!this.props.disableDropdown) {
 			var arrowZone = <span className="Select-arrow-zone" onMouseDown={this.handleMouseDownOnArrow} />;
 			var arrow = <span className="Select-arrow" onMouseDown={this.handleMouseDownOnArrow} />;
 		}
