@@ -975,7 +975,6 @@ var Select = React.createClass({
 				input,
 				arrowZone,
 				arrow,
-				React.createElement('span', { className: 'Select-arrow', onMouseDown: this.handleMouseDownOnArrow }),
 				loading,
 				clear
 			),

@@ -880,7 +880,6 @@ var Select = React.createClass({
 					{input}
 					{arrowZone}
 					{arrow}
-					<span className="Select-arrow" onMouseDown={this.handleMouseDownOnArrow} />
 					{loading}
 					{clear}
 				</div>
