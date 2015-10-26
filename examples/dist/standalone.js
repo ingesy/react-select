@@ -654,7 +654,7 @@ var Select = React.createClass({
 			}
 		}
 
-		this.props.asyncOptions(input, function (err, data) {
+		this.props.asyncOptions(input = '', function (err, data) {
 			if (err) throw err;
 			if (_this9.props.cacheAsyncResults) {
 				_this9._optionsCache[input] = data;
@@ -797,7 +797,7 @@ var Select = React.createClass({
 			};
 			options.unshift(newOption);
 		}
-		var ops = Object.keys(options).map(function (key) {
+		var ops = Object.keys(options).map(function (key, index) {
 			var op = options[key];
 			var isSelected = this.state.value === op[this.props.valueKey];
 			var isFocused = focusedValue === op[this.props.valueKey];
@@ -812,7 +812,7 @@ var Select = React.createClass({
 			var mouseLeave = this.unfocusOption.bind(this, op);
 			var mouseDown = this.selectValue.bind(this, op);
 			var optionResult = React.createElement(this.props.optionComponent, {
-				key: 'option-' + op[this.props.valueKey],
+				key: 'option-' + index,
 				className: optionClass,
 				renderFunc: renderLabel,
 				mouseEnter: mouseEnter,
