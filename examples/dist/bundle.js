@@ -739,6 +739,8 @@ var Select = React.createClass({
 	},
 
 	loadAsyncOptions: function loadAsyncOptions(input, state, callback) {
+		if (input === undefined) input = '';
+
 		var _this9 = this;
 
 		var thisRequestId = this._currentRequestId = requestId++;
@@ -765,7 +767,7 @@ var Select = React.createClass({
 			}
 		}
 
-		this.props.asyncOptions(input = '', function (err, data) {
+		this.props.asyncOptions(input, function (err, data) {
 			if (err) throw err;
 			if (_this9.props.cacheAsyncResults) {
 				_this9._optionsCache[input] = data;
